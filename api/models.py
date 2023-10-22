@@ -1,7 +1,7 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
-from .data import CHOICES_SALON, CHOICES_MASTER
+from .data import CHOICES_MASTER, CHOICES_SALON
 
 
 class Salon(models.Model):
@@ -24,6 +24,7 @@ class Salon(models.Model):
 
 
 class Master(models.Model):
+    telegram_id = models.IntegerField()
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
     image = models.ImageField()
