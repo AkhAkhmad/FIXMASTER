@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from .data import CHOICES_MASTER, CHOICES_SALON
+from .data import ESTABLISHMENT_TYPE, CHOICES_GENDER
 
 
 class Salon(models.Model):
@@ -13,7 +13,7 @@ class Salon(models.Model):
     time_end = models.TimeField()
     work_schedule = models.CharField(max_length=30)
     type = models.CharField(max_length=20,
-                            choices=CHOICES_SALON)
+                            choices=ESTABLISHMENT_TYPE)
 
     def __str__(self):
         return self.title
@@ -30,7 +30,7 @@ class Master(models.Model):
     image = models.ImageField()
     gender = models.CharField(
         max_length=30,
-        choices=CHOICES_MASTER,
+        choices=CHOICES_GENDER,
         default='WOMEN'
     )
     work_schedule = models.CharField(max_length=20)

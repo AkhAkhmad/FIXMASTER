@@ -1,4 +1,4 @@
-/media/
-/.idea/
-pycache
-*.sqlite3
+media/
+.idea/
+__pycache__/
+db.sqlite3
