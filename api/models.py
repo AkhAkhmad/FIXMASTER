@@ -4,7 +4,9 @@ from django.db import models
 from .data import ESTABLISHMENT_TYPE, CHOICES_GENDER
 
 
-class Salon(models.Model):
+class Business(models.Model):
+    image = models.ImageField()
+    telegram_id = models.CharField(max_length=30)
     title = models.CharField(max_length=30)
     address = models.CharField(max_length=30)
     contact_phone = models.CharField(max_length=30)
@@ -14,6 +16,8 @@ class Salon(models.Model):
     work_schedule = models.CharField(max_length=30)
     type = models.CharField(max_length=20,
                             choices=ESTABLISHMENT_TYPE)
+    collectionimage = models.OneToOneField('CollectionImage', on_delete=models.CASCADE)
+    master = models.ForeignKey('Master', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -33,9 +37,8 @@ class Master(models.Model):
         choices=CHOICES_GENDER,
         default='WOMEN'
     )
-    work_schedule = models.CharField(max_length=20)
-    time_begin = models.TimeField()
-    time_end = models.TimeField()
+    service = models.ManyToManyField('Service', through='MasterItem')
+    booking = models.ForeignKey('Booking', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -43,6 +46,11 @@ class Master(models.Model):
     class Meta:
         verbose_name = 'Мастер'
         verbose_name_plural = 'Мастера'
+
+
+class MasterItem(models.Model):
+    master_item = models.ForeignKey(Master, on_delete=models.CASCADE)
+    service = models.ForeignKey('Service', on_delete=models.CASCADE)
 
 
 class MasterReview(models.Model):
@@ -69,7 +77,6 @@ class Image(models.Model):
 
 
 class CollectionImage(models.Model):
-    item = models.ForeignKey(Salon, on_delete=models.CASCADE)
     image = models.ForeignKey(Image, on_delete=models.CASCADE)
     priority = models.IntegerField()
 
@@ -83,7 +90,6 @@ class CollectionImage(models.Model):
 
 class Service(models.Model):
     title = models.CharField(max_length=30)
-    description = models.CharField(max_length=30)
     price = models.PositiveIntegerField()
     min_time = models.IntegerField()
 
@@ -96,6 +102,7 @@ class Service(models.Model):
 
 
 class Customer(models.Model):
+    telegram_id = models.CharField(max_length=30)
     phone = models.CharField(max_length=30)
     username = models.CharField(max_length=30)
 
@@ -108,13 +115,11 @@ class Customer(models.Model):
 
 
 class Booking(models.Model):
-    master = models.ForeignKey(Master, on_delete=models.CASCADE)
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
     date_booking = models.DateTimeField()
     username = models.CharField(max_length=30)
     phone = models.CharField(max_length=30)
     comment = models.CharField(max_length=30)
-    total_price = models.CharField(max_length=30)
+    price = models.CharField(max_length=30)
     int = models.IntegerField()
 
     def __str__(self):

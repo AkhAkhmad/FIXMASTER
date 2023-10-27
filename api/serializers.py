@@ -1,11 +1,11 @@
 from rest_framework import serializers
 
-from .models import Master, Salon
+from .models import Master, Business
 
 
 class SalonSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Salon
+        model = Business
         fields = '__all__'
 
 
