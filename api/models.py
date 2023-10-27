@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from .data import ESTABLISHMENT_TYPE, CHOICES_GENDER
+from .data import CHOICES_GENDER, ESTABLISHMENT_TYPE
 
 
 class Business(models.Model):
@@ -16,7 +16,7 @@ class Business(models.Model):
     work_schedule = models.CharField(max_length=30)
     type = models.CharField(max_length=20,
                             choices=ESTABLISHMENT_TYPE)
-    collectionimage = models.OneToOneField('CollectionImage', on_delete=models.CASCADE)
+    collection_image = models.OneToOneField('CollectionImage', on_delete=models.CASCADE)
     master = models.ForeignKey('Master', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -53,16 +53,6 @@ class MasterItem(models.Model):
     service = models.ForeignKey('Service', on_delete=models.CASCADE)
 
 
-class MasterReview(models.Model):
-    master = models.ForeignKey(Master, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.CharField(max_length=30)
-    date_created = models.DateTimeField()
-
-    def __str__(self):
-        return self.text
-
-
 class Image(models.Model):
     title = models.CharField(max_length=30)
     file = models.ImageField()
@@ -79,7 +69,7 @@ class Image(models.Model):
 class CollectionImage(models.Model):
     image = models.ForeignKey(Image, on_delete=models.CASCADE)
     priority = models.IntegerField()
-
+    
     def __str__(self):
         return str(self.item)
 

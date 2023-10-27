@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from .models import Master, Business
+from .models import Business, Master
 
 
-class SalonSerializer(serializers.ModelSerializer):
+class BusinessSerializer(serializers.ModelSerializer):
     class Meta:
         model = Business
         fields = '__all__'

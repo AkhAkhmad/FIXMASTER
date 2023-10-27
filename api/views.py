@@ -1,12 +1,12 @@
 from rest_framework import viewsets
 
-from .models import Master, Business
-from .serializers import MasterSerializer, SalonSerializer
+from .models import Business, Master
+from .serializers import MasterSerializer, BusinessSerializer
 
 
-class SalonViewSet(viewsets.ModelViewSet):
+class BusinessViewSet(viewsets.ModelViewSet):
     queryset = Business.objects.all()
-    serializer_class = SalonSerializer
+    serializer_class = BusinessSerializer
 
 
 class MasterViewSet(viewsets.ModelViewSet):
