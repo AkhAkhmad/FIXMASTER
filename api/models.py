@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.db import models
 
 from .data import CHOICES_GENDER, ESTABLISHMENT_TYPE
@@ -16,8 +15,6 @@ class Business(models.Model):
     work_schedule = models.CharField(max_length=30)
     type = models.CharField(max_length=20,
                             choices=ESTABLISHMENT_TYPE)
-    collection_image = models.OneToOneField('CollectionImage', on_delete=models.CASCADE)
-    master = models.ForeignKey('Master', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -37,8 +34,7 @@ class Master(models.Model):
         choices=CHOICES_GENDER,
         default='WOMEN'
     )
-    service = models.ManyToManyField('Service', through='MasterItem')
-    booking = models.ForeignKey('Booking', on_delete=models.CASCADE)
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -48,15 +44,11 @@ class Master(models.Model):
         verbose_name_plural = 'Мастера'
 
 
-class MasterItem(models.Model):
-    master_item = models.ForeignKey(Master, on_delete=models.CASCADE)
-    service = models.ForeignKey('Service', on_delete=models.CASCADE)
-
-
 class Image(models.Model):
     title = models.CharField(max_length=30)
     file = models.ImageField()
-    alt = models.CharField(max_length=30)
+    priority = models.IntegerField()
+    collection_Images = models.ForeignKey('CollectionImages', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -66,10 +58,9 @@ class Image(models.Model):
         verbose_name_plural = 'Картинки'
 
 
-class CollectionImage(models.Model):
-    image = models.ForeignKey(Image, on_delete=models.CASCADE)
-    priority = models.IntegerField()
-    
+class CollectionImages(models.Model):
+    business = models.OneToOneField(Business, on_delete=models.CASCADE)
+
     def __str__(self):
         return str(self.item)
 
@@ -82,6 +73,7 @@ class Service(models.Model):
     title = models.CharField(max_length=30)
     price = models.PositiveIntegerField()
     min_time = models.IntegerField()
+    master = models.ManyToManyField(Master)
 
     def __str__(self):
         return self.title
@@ -111,6 +103,10 @@ class Booking(models.Model):
     comment = models.CharField(max_length=30)
     price = models.CharField(max_length=30)
     int = models.IntegerField()
+    master = models.OneToOneField(Master, on_delete=models.CASCADE)
+    business = models.OneToOneField(Business, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.username
