@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import (Booking, Business, CollectionImages, Customer, Image,
-                     Master, Service, Order)
+                     Master, Order, Service)
 
 admin.site.register(Image)
 admin.site.register(CollectionImages)

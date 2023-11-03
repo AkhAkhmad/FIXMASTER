@@ -1,15 +1,27 @@
 from rest_framework import serializers
 
-from .models import Business, Master
+from . import models
 
 
 class BusinessSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Business
+        model = models.Business
         fields = '__all__'
 
 
 class MasterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Master
+        model = models.Master
+        fields = '__all__'
+
+
+class ServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Service
+        fields = '__all__'
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Order
         fields = '__all__'

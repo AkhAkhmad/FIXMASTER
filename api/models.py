@@ -50,8 +50,8 @@ class Image(models.Model):
     image = models.ImageField('Изображение')
     priority = models.IntegerField('Приоритет')
     collection_Images = models.ForeignKey(
-                                        'CollectionImages', on_delete=models.CASCADE, 
-                                        verbose_name='Коллекция Изображений')
+        'CollectionImages', on_delete=models.CASCADE,
+        verbose_name='Коллекция Изображений')
 
     def __str__(self):
         return self.title
@@ -111,10 +111,11 @@ class Booking(models.Model):
 
     def __str__(self):
         return self.username
-    
+
     class Meta:
         verbose_name = 'Бронирование'
         verbose_name_plural = 'Бронирование'
+
 
 class Order(models.Model):
     begin_date = models.DateField('Дата начала')
@@ -123,9 +124,6 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Клиент')
     master = models.OneToOneField(Master, on_delete=models.CASCADE, verbose_name='Мастер')
 
-    def __str__(self):
-        return self.username
-    
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
