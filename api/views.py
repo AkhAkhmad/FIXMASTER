@@ -13,7 +13,7 @@ class BusinessCreateAPIView(generics.CreateAPIView):
     serializer_class = serializers.BusinessSerializer
 
 
-class BusinessRetrieveAPIView(generics.RetrieveAPIView):
+class BusinessUpdateAPIView(generics.UpdateAPIView):
     queryset = models.Business.objects.all()
     serializer_class = serializers.BusinessSerializer
 
@@ -33,7 +33,7 @@ class MasterCreateAPIView(generics.CreateAPIView):
     serializer_class = serializers.MasterSerializer
 
 
-class MasterRetrieveAPIView(generics.RetrieveAPIView):
+class MasterUpdateAPIView(generics.UpdateAPIView):
     queryset = models.Master.objects.all()
     serializer_class = serializers.MasterSerializer
 
@@ -53,7 +53,7 @@ class ServiceCreateAPIView(generics.CreateAPIView):
     serializer_class = serializers.ServiceSerializer
 
 
-class ServiceRetrieveAPIView(generics.RetrieveAPIView):
+class ServiceUpdateAPIView(generics.UpdateAPIView):
     queryset = models.Service.objects.all()
     serializer_class = serializers.ServiceSerializer
 
@@ -73,7 +73,7 @@ class OrderCreateAPIView(generics.CreateAPIView):
     serializer_class = serializers.OrderSerializer
 
 
-class OrderRetrieveAPIView(generics.RetrieveAPIView):
+class OrderUpdateAPIView(generics.UpdateAPIView):
     queryset = models.Order.objects.all()
     serializer_class = serializers.OrderSerializer
 

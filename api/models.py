@@ -101,16 +101,9 @@ class Customer(models.Model):
 
 
 class Booking(models.Model):
-    date_booking = models.DateTimeField('Дата создания')
-    username = models.CharField('Имя пользователя', max_length=30)
-    phone = models.CharField('Номер телефона', max_length=30)
-    comment = models.CharField('Комментарий', max_length=30)
-    price = models.CharField('Цена', max_length=30)
-    business = models.OneToOneField(Business, on_delete=models.CASCADE, verbose_name='Бизнесс')
-    service = models.ForeignKey(Service, on_delete=models.CASCADE, verbose_name='Сервис')
-
-    def __str__(self):
-        return self.username
+    booking_date = models.DateField()
+    booking_time = models.TimeField()
+    master = models.ForeignKey(Master, on_delete=models.CASCADE, verbose_name='Мастер')
 
     class Meta:
         verbose_name = 'Бронирование'
@@ -122,7 +115,7 @@ class Order(models.Model):
     begin_time = models.TimeField('Время начала')
     status = models.CharField('Статус', max_length=20, choices=None)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Клиент')
-    master = models.OneToOneField(Master, on_delete=models.CASCADE, verbose_name='Мастер')
+    master = models.ForeignKey(Master, on_delete=models.CASCADE, verbose_name='Мастер')
 
     class Meta:
         verbose_name = 'Продукт'
