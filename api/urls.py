@@ -15,8 +15,8 @@ urlpatterns = [
     path('service/create', views.ServiceCreateAPIView.as_view()),
     path('service/update/<int:pk>', views.ServiceUpdateAPIView.as_view()),
     path('service/delete/<int:pk>', views.ServiceDestroyAPIView.as_view()),
-    path('orders/', views.ServiceListAPIView.as_view()),
-    path('orders/create', views.ServiceCreateAPIView.as_view()),
-    path('orders/update/<int:pk>', views.ServiceUpdateAPIView.as_view()),
-    path('orders/delete/<int:pk>', views.ServiceDestroyAPIView.as_view()),
+    path('order/', views.ServiceListAPIView.as_view()),
+    path('order/create', views.ServiceCreateAPIView.as_view()),
+    path('order/update/<int:pk>', views.ServiceUpdateAPIView.as_view()),
+    path('order/delete/<int:pk>', views.ServiceDestroyAPIView.as_view()),
 ]
