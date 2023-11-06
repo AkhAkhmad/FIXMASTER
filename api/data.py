@@ -6,3 +6,9 @@ CHOICES_GENDER = (
     ('MEN', 'Мужчина'),
     ('WOMEN', 'Женщина'),
 )
+
+CHOICES_STATUS = (
+    ('New', 'Новый'),
+    ('InProgress', 'В прогрессе'),
+    ('Done', 'Закончено'),
+)

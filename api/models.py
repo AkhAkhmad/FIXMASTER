@@ -1,10 +1,10 @@
 from django.db import models
 
-from .data import CHOICES_GENDER, ESTABLISHMENT_TYPE
+from . import data
 
 
 class Business(models.Model):
-    image = models.ImageField('Изображение')
+    image = models.ImageField('Изображение', upload_to='business')
     telegram_id = models.CharField('Айди Телеграм-аккаунта', max_length=30)
     title = models.CharField('Название', max_length=30)
     address = models.CharField('Адрес', max_length=30)
@@ -14,7 +14,7 @@ class Business(models.Model):
     time_end = models.TimeField('Конечное время')
     work_schedule = models.CharField('График работы', max_length=30)
     type = models.CharField('Тип', max_length=20,
-                            choices=ESTABLISHMENT_TYPE)
+                            choices=data.ESTABLISHMENT_TYPE)
 
     def __str__(self):
         return self.title
@@ -28,11 +28,11 @@ class Master(models.Model):
     telegram_id = models.CharField('Айди Телеграм-аккаунта', max_length=30)
     name = models.CharField('Имя', max_length=30)
     surname = models.CharField('Фамилия', max_length=30)
-    image = models.ImageField('Изображние')
+    image = models.ImageField('Изображние', upload_to='master')
     gender = models.CharField(
         'Пол',
         max_length=30,
-        choices=CHOICES_GENDER,
+        choices=data.CHOICES_GENDER,
         default='WOMEN'
     )
     business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name='Бизнесс')
@@ -47,7 +47,7 @@ class Master(models.Model):
 
 class Image(models.Model):
     title = models.CharField('Название', max_length=30)
-    image = models.ImageField('Изображение')
+    image = models.ImageField('Изображение', upload_to='image')
     priority = models.IntegerField('Приоритет')
     collection_Images = models.ForeignKey(
         'CollectionImages', on_delete=models.CASCADE,
@@ -113,7 +113,7 @@ class Booking(models.Model):
 class Order(models.Model):
     begin_date = models.DateField('Дата начала')
     begin_time = models.TimeField('Время начала')
-    status = models.CharField('Статус', max_length=20, choices=None)
+    status = models.CharField('Статус', max_length=20, choices=data.CHOICES_STATUS)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Клиент')
     master = models.ForeignKey(Master, on_delete=models.CASCADE, verbose_name='Мастер')
 
