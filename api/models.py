@@ -4,9 +4,9 @@ from . import data
 
 
 class Business(models.Model):
-    image = models.ImageField('Изображение', upload_to='business')
     telegram_id = models.CharField('Айди Телеграм-аккаунта', max_length=30)
     title = models.CharField('Название', max_length=30)
+    image = models.ImageField('Изображение', upload_to='business')
     address = models.CharField('Адрес', max_length=30)
     contact_phone = models.CharField('Номер телефона', max_length=30)
     status = models.BooleanField('Статус')
@@ -37,6 +37,7 @@ class Master(models.Model):
         null=True, blank=True
     )
     business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name='Бизнесс', null=True, blank=True)
+    service = models.ManyToManyField('Service', verbose_name='Сервис', null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -78,7 +79,6 @@ class Service(models.Model):
     title = models.CharField('Название', max_length=30, null=True, blank=True)
     price = models.PositiveIntegerField('Цена', null=True, blank=True)
     min_time = models.IntegerField('Минимальное время', null=True, blank=True)
-    master = models.ManyToManyField(Master, verbose_name='Мастер', null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -103,7 +103,7 @@ class Customer(models.Model):
 
 class Booking(models.Model):
     booking_date = models.DateField(null=True, blank=True)
-    booking_time = models.TimeField( null=True, blank=True)
+    booking_time = models.TimeField(null=True, blank=True)
     master = models.ForeignKey(Master, on_delete=models.CASCADE, verbose_name='Мастер', null=True, blank=True)
 
     class Meta:
