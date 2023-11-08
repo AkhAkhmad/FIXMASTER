@@ -16,16 +16,19 @@ class BusinessCreateAPIView(generics.CreateAPIView):
 class BusinessRetrieveAPIView(generics.RetrieveAPIView):
     queryset = models.Business.objects.all()
     serializer_class = serializers.BusinessSerializer
+    lookup_field = 'telegram_id'
 
 
 class BusinessUpdateAPIView(generics.UpdateAPIView):
     queryset = models.Business.objects.all()
     serializer_class = serializers.BusinessSerializer
+    lookup_field = 'telegram_id'
 
 
 class BusinessDestroyAPIView(generics.DestroyAPIView):
     queryset = models.Business.objects.all()
     serializer_class = serializers.BusinessSerializer
+    lookup_field = 'telegram_id'
 
 
 class MasterListAPIView(generics.ListAPIView):
@@ -101,3 +104,9 @@ class OrderUpdateAPIView(generics.UpdateAPIView):
 class OrderDestroyAPIView(generics.DestroyAPIView):
     queryset = models.Order.objects.all()
     serializer_class = serializers.OrderSerializer
+
+
+class CustomerRetrieveAPIView(generics.RetrieveAPIView):
+    queryset = models.Customer.objects.all()
+    serializer_class = serializers.CustomerSerializer
+    lookup_field = 'phone'

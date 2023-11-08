@@ -6,8 +6,11 @@ urlpatterns = [
     path('business/', views.BusinessListAPIView.as_view()),
     path('business/create', views.BusinessCreateAPIView.as_view()),
     path('business/detail/<int:pk>', views.BusinessRetrieveAPIView.as_view()),
+    path('business/detail/tg/<slug:telegram_id>', views.BusinessRetrieveAPIView.as_view()),
     path('business/update/<int:pk>', views.BusinessUpdateAPIView.as_view()),
+    path('business/update/tg/<slug:telegram_id>', views.BusinessUpdateAPIView.as_view()),
     path('business/delete/<int:pk>', views.BusinessDestroyAPIView.as_view()),
+    path('business/delete/tg/<slug:telegram_id>', views.BusinessDestroyAPIView.as_view()),
     path('master/', views.MasterListAPIView.as_view()),
     path('master/create', views.MasterCreateAPIView.as_view()),
     path('master/detail/<int:pk>', views.MasterRetrieveAPIView.as_view()),
@@ -23,4 +26,5 @@ urlpatterns = [
     path('order/detail/<int:pk>', views.OrderRetrieveAPIView.as_view()),
     path('order/update/<int:pk>', views.ServiceUpdateAPIView.as_view()),
     path('order/delete/<int:pk>', views.ServiceDestroyAPIView.as_view()),
+    path('customer/detail/<slug:phone>', views.CustomerRetrieveAPIView.as_view()),
 ]
