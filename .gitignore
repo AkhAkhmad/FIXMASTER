@@ -1,6 +1,8 @@
-*/media
-*/__pycache__
-*/.idea
-*/.sqlite.db
-*/*.pyc
-*/.gitignore
+media/
+__pycache__/
+*/__pycache__/
+.idea/
+.sqlite.db
+.pyc
+.DS_Store
+.gitignore
