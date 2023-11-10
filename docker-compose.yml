@@ -1,0 +1,24 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: ./commands.sh
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+  celery:
+    build: .
+    command: celery -A FIXMASTER worker --loglevel=info
+    volumes:
+      - .:/app
+  redis:
+    image: "redis:alpine"
+  nginx:
+    image: "nginx:alpine"
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    volumes:
+      - ./nginx.conf:/etc/nginx/default.conf
