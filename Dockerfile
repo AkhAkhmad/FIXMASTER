@@ -6,6 +6,7 @@ COPY . /app
 COPY default.conf /etc/nginx/nginx.conf
 
 RUN apt-get update \
+    && apt-get upgrade\
     && apt-get install -y gcc \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
