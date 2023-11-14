@@ -2,18 +2,13 @@ version: '3'
 services:
   web:
     build: .
-    command: ./commands.sh
+    command: python manage.py collectstatic --noinput && python manage.py migrate && python manage.py runserver
     volumes:
       - .:/app
+      - static_volume:/app/static
+      - media_volume:/app/media
     ports:
       - "8000:8000"
-  celery:
-    build: .
-    command: celery -A FIXMASTER worker --loglevel=info
-    volumes:
-      - .:/app
-  redis:
-    image: "redis:alpine"
   nginx:
     image: "nginx:alpine"
     ports:
@@ -21,4 +16,9 @@ services:
     depends_on:
       - web
     volumes:
-      - ./nginx.conf:/etc/nginx/default.conf
+      - ./default.conf:/etc/nginx/default.conf
+
+
+volumes:
+  static_volume:
+  media_volume:
