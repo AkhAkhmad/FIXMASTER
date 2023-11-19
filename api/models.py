@@ -103,12 +103,15 @@ class Customer(models.Model):
 
 class Booking(models.Model):
     booking_date = models.DateField(null=True, blank=True)
-    booking_time = models.TimeField(null=True, blank=True)
+    booking_time = models.CharField(max_length=5, null=True, blank=True)
     master = models.ForeignKey(Master, on_delete=models.CASCADE, verbose_name='Мастер', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Бронирование'
         verbose_name_plural = 'Бронирование'
+
+    def __str__(self):
+        return str(self.master)
 
 
 class Order(models.Model):
@@ -121,3 +124,6 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
+
+    def __str__(self):
+        return str(self.master)
