@@ -154,16 +154,11 @@ class CustomerDestroyAPIView(generics.DestroyAPIView):
 class BookingListApiView(generics.ListAPIView):
     queryset = models.Booking.objects.all()
     serializer_class = serializers.BookingSerializer
+    lookup_field = 'master'
 
     def get_queryset(self):
+        master_id = self.kwargs['master']
         today = date.today()
         queryset = super().get_queryset()
-        queryset = queryset.filter(booking_date=today)
+        queryset = queryset.filter(master=master_id, booking_date=today)
         return queryset
-
-
-# def booking_datetime_all(request):
-#     bookings = models.Booking.objects.all()
-#     json = {}
-#     for i in bookings:
-#         print(i)

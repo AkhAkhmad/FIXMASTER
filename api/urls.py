@@ -31,6 +31,5 @@ urlpatterns = [
     path('customer/detail/<slug:phone>', views.CustomerRetrieveAPIView.as_view()),
     path('customer/update/<slug:phone>', views.CustomerUpdateAPIView.as_view()),
     path('customer/delete/<slug:phone>', views.CustomerDestroyAPIView.as_view()),
-    path('booking/', views.BookingListApiView.as_view()),
-    # path('booking/<int:master>/datetime', views.BookingListApiView.as_view()),
+    path('booking/<int:master>/datetime', views.BookingListApiView.as_view()),
 ]
