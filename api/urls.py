@@ -26,6 +26,11 @@ urlpatterns = [
     path('order/detail/<int:pk>', views.OrderRetrieveAPIView.as_view()),
     path('order/update/<int:pk>', views.OrderUpdateAPIView.as_view()),
     path('order/delete/<int:pk>', views.OrderDestroyAPIView.as_view()),
+    path('customer/', views.CustomerListAPIView.as_view()),
+    path('customer/create/', views.CustomerCreateAPIView.as_view()),
     path('customer/detail/<slug:phone>', views.CustomerRetrieveAPIView.as_view()),
+    path('customer/update/<slug:phone>', views.CustomerUpdateAPIView.as_view()),
+    path('customer/delete/<slug:phone>', views.CustomerDestroyAPIView.as_view()),
     path('booking/', views.BookingListApiView.as_view()),
+    # path('booking/<int:master>/datetime', views.BookingListApiView.as_view()),
 ]

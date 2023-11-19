@@ -123,7 +123,29 @@ class OrderDestroyAPIView(generics.DestroyAPIView):
     serializer_class = serializers.OrderSerializer
 
 
+class CustomerListAPIView(generics.ListAPIView):
+    queryset = models.Customer.objects.all()
+    serializer_class = serializers.CustomerSerializer
+
+
+class CustomerCreateAPIView(generics.CreateAPIView):
+    queryset = models.Customer.objects.all()
+    serializer_class = serializers.CustomerSerializer
+
+
 class CustomerRetrieveAPIView(generics.RetrieveAPIView):
+    queryset = models.Customer.objects.all()
+    serializer_class = serializers.CustomerSerializer
+    lookup_field = 'phone'
+
+
+class CustomerUpdateAPIView(generics.UpdateAPIView):
+    queryset = models.Customer.objects.all()
+    serializer_class = serializers.CustomerSerializer
+    lookup_field = 'phone'
+
+
+class CustomerDestroyAPIView(generics.DestroyAPIView):
     queryset = models.Customer.objects.all()
     serializer_class = serializers.CustomerSerializer
     lookup_field = 'phone'
@@ -138,3 +160,10 @@ class BookingListApiView(generics.ListAPIView):
         queryset = super().get_queryset()
         queryset = queryset.filter(booking_date=today)
         return queryset
+
+
+# def booking_datetime_all(request):
+#     bookings = models.Booking.objects.all()
+#     json = {}
+#     for i in bookings:
+#         print(i)
