@@ -1,7 +1,6 @@
 from datetime import date
 
 from rest_framework import generics
-from rest_framework.exceptions import ValidationError
 
 from . import models, serializers
 
@@ -92,20 +91,6 @@ class OrderListAPIView(generics.ListAPIView):
 class OrderCreateAPIView(generics.CreateAPIView):
     queryset = models.Order.objects.all()
     serializer_class = serializers.OrderSerializer
-
-    def create(self, request, *args, **kwargs):
-        order_date = vars(request).get('_full_data')['begin_date']
-        order_time = vars(request).get('_full_data')['begin_time']
-        master_id = vars(request).get('_full_data')['master']
-        master_instance = models.Master.objects.filter(pk=master_id).first()
-        existing_booking = models.Booking.objects.filter(master=master_id, booking_date=order_date,
-                                                         booking_time=order_time).first()
-        if existing_booking:
-            raise ValidationError({"error": "Бронь уже существует"})
-        response = super().create(request, *args, **kwargs)
-        models.Booking.objects.create(booking_date=order_date, booking_time=order_time,
-                                      master=master_instance)
-        return response
 
 
 class OrderRetrieveAPIView(generics.RetrieveAPIView):

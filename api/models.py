@@ -103,7 +103,7 @@ class Customer(models.Model):
 
 class Booking(models.Model):
     booking_date = models.DateField(null=True, blank=True)
-    booking_time = models.CharField(max_length=5, null=True, blank=True)
+    booking_time = models.TimeField(null=True, blank=True)
     master = models.ForeignKey(Master, on_delete=models.CASCADE, verbose_name='Мастер', null=True, blank=True)
 
     class Meta:
