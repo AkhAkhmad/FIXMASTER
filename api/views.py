@@ -1,4 +1,6 @@
 from datetime import date
+from django.db.models.signals import post_save
+from .receivers import create_booking
 
 from rest_framework import generics
 
@@ -91,6 +93,11 @@ class OrderListAPIView(generics.ListAPIView):
 class OrderCreateAPIView(generics.CreateAPIView):
     queryset = models.Order.objects.all()
     serializer_class = serializers.OrderSerializer
+
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        post_save.connect(create_booking, sender=models.Order)
+        return response
 
 
 class OrderRetrieveAPIView(generics.RetrieveAPIView):

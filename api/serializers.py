@@ -2,7 +2,6 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from . import models
-from .receivers import create_booking
 
 
 class BusinessSerializer(serializers.ModelSerializer):
@@ -40,11 +39,6 @@ class OrderSerializer(serializers.ModelSerializer):
             raise ValidationError({"error": "Бронь уже существует"})
 
         return data
-
-    def create(self, validated_data):
-        instance = super().create(validated_data)
-        create_booking(sender=models.Order, created=True, instance=instance)
-        return instance
 
 
 class CustomerSerializer(serializers.ModelSerializer):
