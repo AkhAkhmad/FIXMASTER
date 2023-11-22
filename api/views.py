@@ -1,10 +1,10 @@
 from datetime import date
-from django.db.models.signals import post_save
-from .receivers import create_booking
 
+from django.db.models.signals import post_save
 from rest_framework import generics
 
 from . import models, serializers
+from .signals import create_booking
 
 
 class BusinessListAPIView(generics.ListAPIView):
@@ -96,7 +96,7 @@ class OrderCreateAPIView(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
-        post_save.connect(create_booking, sender=models.Order)
+        post_save.connect(create_booking, sender=models.Order, dispatch_uid='create_booking')
         return response
 
 
