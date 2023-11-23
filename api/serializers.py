@@ -42,9 +42,9 @@ class OrderSerializer(serializers.ModelSerializer):
             raise ValidationError({"error": "Бронь уже существует"})
         if begin_time >= (
                 datetime.strptime(str(business.time_end), '%H:%M:%S') - timedelta(hours=1)).time():
-            raise ValidationError({"business.time_end": "За час до закрытия заявки не принимаются"})
+            raise ValidationError({"order.begin_time": "За час до закрытия заявки не принимаются"})
         if begin_time < business.time_begin:
-            raise ValidationError({"business.time_begin": "Салон еще не открыт"})
+            raise ValidationError({"order.begin_time": "Салон еще не открыт"})
 
         return data
 
