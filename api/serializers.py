@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
@@ -29,6 +31,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         master, begin_date, begin_time = data.get('master'), data.get('begin_date'), data.get('begin_time')
+        business = master.business
         existing_booking = models.Booking.objects.filter(
             master=master,
             booking_date=begin_date,
@@ -37,7 +40,9 @@ class OrderSerializer(serializers.ModelSerializer):
 
         if existing_booking:
             raise ValidationError({"error": "Бронь уже существует"})
-
+        if begin_time < business.time_begin or begin_time >= (
+                datetime.strptime(str(business.time_end), '%H:%M:%S') - timedelta(hours=1)).time():
+            raise ValidationError({"error": "За час до закрытия заявки не принимаются"})
         return data
 
 

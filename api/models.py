@@ -68,7 +68,7 @@ class CollectionImages(models.Model):
     business = models.OneToOneField(Business, on_delete=models.CASCADE, verbose_name='Бизнес', null=True, blank=True)
 
     def __str__(self):
-        return str(self.item)
+        return str(self.title)
 
     class Meta:
         verbose_name = 'Коллекция изображений'
