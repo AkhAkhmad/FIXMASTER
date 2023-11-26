@@ -13,7 +13,7 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'drf_yasg',
-    'corsheaders',
+    "corsheaders",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -96,4 +96,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
+    "http://localhost:3000",
+    "http://localhost:*",
+    "http://127.0.0.1:*",
+    "http://*",
 ]
