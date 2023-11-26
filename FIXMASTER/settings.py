@@ -3,6 +3,11 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+LOGGING_DIR = os.path.join(BASE_DIR, 'logs')
+
+if not os.path.exists(LOGGING_DIR):
+    os.makedirs(LOGGING_DIR)
+
 SECRET_KEY = 'django-insecure-#r$te%^jg9(#(mmfq=&umzq7s0s2gggx&#bdzbn1rrl2_uayzy'
 
 DEBUG = True
@@ -77,7 +82,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -101,3 +106,30 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:*",
     "http://*",
 ]
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "main": {
+            'format': '[%(asctime)s] %(levelname)s %(message)s',
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+            "style": "%",
+        },
+    },
+    "handlers": {
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            'filename': os.path.join(LOGGING_DIR, 'django.log'),
+            "formatter": "main",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": True,
+        },
+    },
+}
