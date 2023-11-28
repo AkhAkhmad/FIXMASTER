@@ -4,17 +4,17 @@ from . import data
 
 
 class Business(models.Model):
-    telegram_id = models.CharField('Айди Телеграм-аккаунта', max_length=30)
-    title = models.CharField('Название', max_length=30)
-    image = models.ImageField('Изображение', upload_to='business')
-    address = models.CharField('Адрес', max_length=30)
-    contact_phone = models.CharField('Номер телефона', max_length=30)
-    status = models.BooleanField('Статус')
-    time_begin = models.TimeField('Начальное время')
-    time_end = models.TimeField('Конечное время')
-    work_schedule = models.CharField('График работы', max_length=30)
+    telegram_id = models.CharField('Айди Телеграм-аккаунта', max_length=30, null=True, blank=True)
+    title = models.CharField('Название', max_length=30, null=True, blank=True)
+    image = models.ImageField('Изображение', upload_to='business', null=True, blank=True)
+    address = models.CharField('Адрес', max_length=30, null=True, blank=True)
+    contact_phone = models.CharField('Номер телефона', max_length=30, null=True, blank=True)
+    status = models.BooleanField('Статус', default=True, null=True, blank=True)
+    time_begin = models.TimeField('Начальное время', null=True, blank=True)
+    time_end = models.TimeField('Конечное время', null=True, blank=True)
+    work_schedule = models.CharField('График работы', max_length=30, null=True, blank=True)
     type = models.CharField('Тип', max_length=20,
-                            choices=data.ESTABLISHMENT_TYPE)
+                            choices=data.ESTABLISHMENT_TYPE, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -36,8 +36,8 @@ class Master(models.Model):
         default='WOMEN',
         null=True, blank=True
     )
-    business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name='Бизнесс', null=True, blank=True)
-    service = models.ManyToManyField('Service', verbose_name='Сервис', null=True, blank=True)
+    business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name='Бизнесс')
+    service = models.ManyToManyField('Service', verbose_name='Сервис')
 
     def __str__(self):
         return self.name
@@ -53,7 +53,7 @@ class Image(models.Model):
     priority = models.IntegerField('Приоритет', null=True, blank=True)
     collection_Images = models.ForeignKey(
         'CollectionImages', on_delete=models.CASCADE,
-        verbose_name='Коллекция Изображений', null=True, blank=True)
+        verbose_name='Коллекция Изображений')
 
     def __str__(self):
         return self.title
@@ -65,7 +65,7 @@ class Image(models.Model):
 
 class CollectionImages(models.Model):
     title = models.CharField('Название', max_length=50, null=True, blank=True)
-    business = models.OneToOneField(Business, on_delete=models.CASCADE, verbose_name='Бизнес', null=True, blank=True)
+    business = models.OneToOneField(Business, on_delete=models.CASCADE, verbose_name='Бизнес')
 
     def __str__(self):
         return str(self.title)
@@ -102,9 +102,9 @@ class Customer(models.Model):
 
 
 class Booking(models.Model):
-    booking_date = models.DateField(null=True, blank=True)
-    booking_time = models.TimeField(null=True, blank=True)
-    master = models.ForeignKey(Master, on_delete=models.CASCADE, verbose_name='Мастер', null=True, blank=True)
+    booking_date = models.DateField('Дата бронирования', null=True, blank=True)
+    booking_time = models.TimeField('Время бронирования', null=True, blank=True)
+    master = models.ForeignKey(Master, on_delete=models.CASCADE, verbose_name='Мастер')
 
     class Meta:
         verbose_name = 'Бронирование'
@@ -118,8 +118,8 @@ class Order(models.Model):
     begin_date = models.DateField('Дата начала', null=True, blank=True)
     begin_time = models.TimeField('Время начала', null=True, blank=True)
     status = models.CharField('Статус', max_length=20, choices=data.CHOICES_STATUS, null=True, blank=True)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Клиент', null=True, blank=True)
-    master = models.ForeignKey(Master, on_delete=models.CASCADE, verbose_name='Мастер', null=True, blank=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Клиент')
+    master = models.ForeignKey(Master, on_delete=models.CASCADE, verbose_name='Мастер')
 
     class Meta:
         verbose_name = 'Продукт'

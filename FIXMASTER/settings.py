@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     "corsheaders",
+    'django_celery_beat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -133,3 +134,6 @@ LOGGING = {
         },
     },
 }
+
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_TIMEZONE = 'Europe/Moscow'

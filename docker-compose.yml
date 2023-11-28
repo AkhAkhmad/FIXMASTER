@@ -4,6 +4,25 @@ services:
     build: .
     ports:
       - "8000:8000"
+    container_name: 'FIXMASTER'
+
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+
+  celery-worker:
+    build: .
+    command: celery -A FIXMASTER worker -l INFO
+    depends_on:
+      - redis
+
+  celery-beat:
+    build: .
+    command: celery -A FIXMASTER beat -l INFO
+    depends_on:
+      - redis
+
   nginx:
     image: "nginx:alpine"
     ports:
@@ -12,6 +31,7 @@ services:
       - web
     volumes:
       - ./default.conf:/etc/nginx/default.conf
+
 volumes:
-    static_volume:
-    media_volume:
+  static_volume:
+  media_volume:
