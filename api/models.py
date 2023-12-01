@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from .data import CHOICES_SALON, CHOICES_MASTER
+
 
 class Salon(models.Model):
     title = models.CharField(max_length=30)
@@ -9,13 +11,9 @@ class Salon(models.Model):
     status = models.BooleanField()
     time_begin = models.TimeField()
     time_end = models.TimeField()
-    CHOICES = (
-        ('SALON', 'Salon'),
-        ('BEAUTY', 'Beauty'),
-    )
     work_schedule = models.CharField(max_length=30)
     type = models.CharField(max_length=20,
-                            choices=CHOICES)
+                            choices=CHOICES_SALON)
 
     def __str__(self):
         return self.title
@@ -29,13 +27,9 @@ class Master(models.Model):
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
     image = models.ImageField()
-    CHOICES = (
-        ('MEN', 'Men'),
-        ('WOMEN', 'Women'),
-    )
     gender = models.CharField(
         max_length=30,
-        choices=CHOICES,
+        choices=CHOICES_MASTER,
         default='WOMEN'
     )
     work_schedule = models.CharField(max_length=20)

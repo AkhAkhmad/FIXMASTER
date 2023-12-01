@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 
-# Create your views here.
+from .serializers import SalonSerializer
+from .models import Salon
+
+
+class SalonViewSet(viewsets.ModelViewSet):
+    queryset = Salon.objects.all()
+    serializer_class = SalonSerializer
