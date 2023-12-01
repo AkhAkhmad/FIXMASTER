@@ -1,9 +1,14 @@
-CHOICES_SALON = (
-    ('SALON', 'Salon'),
-    ('BEAUTY', 'Beauty'),
+ESTABLISHMENT_TYPE = (
+    ('SALON', 'Салон Красоты'),
+    ('BEAUTY', 'Парикмахерская'),
+)
+CHOICES_GENDER = (
+    ('MEN', 'Мужчина'),
+    ('WOMEN', 'Женщина'),
 )
 
-CHOICES_MASTER = (
-    ('MEN', 'Men'),
-    ('WOMEN', 'Women'),
+CHOICES_STATUS = (
+    ('New', 'Новый'),
+    ('InProgress', 'В прогрессе'),
+    ('Done', 'Закончено'),
 )
